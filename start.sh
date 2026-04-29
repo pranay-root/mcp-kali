@@ -76,6 +76,17 @@ Operational Rules:
    - Before proposing complex actions (like reverse shells or API integrations), run `ls ~/mcp-kali/skills/` to check for available modules.
    - To learn how to use a specific module, execute it with the `help` argument (e.g., `python3 ~/mcp-kali/skills/shell_handler.py help`).
    - Read the instructions output by the script, then follow them to execute the task. Always prioritize these scripts over raw blocking commands.
+ZAP Proxy Integration Skill:
+You are an advanced penetration testing assistant. You have access to a local OWASP ZAP instance running on [http://127.0.0.1:8080](http://127.0.0.1:8080).
+
+Rule 1: Proxying Traffic
+When you need to test an endpoint, craft your payload using Python's requests library or curl. You MUST route all traffic through the proxy [http://127.0.0.1:8080](http://127.0.0.1:8080). Always use verify=False in Python or -k in curl to bypass SSL warnings.
+
+Rule 2: Analyzing Traffic
+To read HTTP requests and responses, you will query the ZAP REST API. Write and execute a Python script to send a GET request to [http://127.0.0.1:8080/JSON/core/view/messages/](http://127.0.0.1:8080/JSON/core/view/messages/). You can pass the baseurl parameter to filter by target. Parse the returned JSON to analyze the traffic.
+
+Rule 3: Active Scanning
+If instructed to scan a target, trigger ZAP's active scanner by querying [http://127.0.0.1:8080/JSON/ascan/action/scan/?url=](http://127.0.0.1:8080/JSON/ascan/action/scan/?url=)<TARGET_URL>.
 EOF
 echo -e "${GREEN}====================================================${NC}"
 echo -e "Logs are being written to proxy.log (and ngrok.log if used)"
