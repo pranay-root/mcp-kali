@@ -1,4 +1,3 @@
-└─# cat mcp.py      
 import os
 import subprocess
 import time
